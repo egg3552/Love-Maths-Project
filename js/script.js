@@ -28,11 +28,22 @@ function runGame(gameType) {
     if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
     } else if (gameType === "multiply") {
-    displayMultiplyQuestion(num1, num2);
-}
+        displayMultiplyQuestion(num1, num2);
+    } else if (gameType === "subtract") {
+        displaySubtractQuestion(num1, num2);
+    } else if (gameType === "division") {
+        // For division, ensure the first number is divisible by the second
+        let divisor = Math.floor(Math.random() * 12) + 1; // 1-12
+        let dividend = divisor * (Math.floor(Math.random() * 12) + 1); // Multiple of divisor
+        displayDivisionQuestion(dividend, divisor);
+    } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
     }
+    
+    // Clear the answer box for new question
+    document.getElementById("answer-box").value = "";
+}
 
 
 /**
@@ -50,6 +61,9 @@ function checkAnswer() {
         alert(`Awwww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
         incrementWrongAnswer();
     }
+    
+    // Generate a new question of the same type
+    runGame(calculatedAnswer[1]);
 }
 
 /**
@@ -64,6 +78,10 @@ function calculateCorrectAnswer() {
         return [operand1 + operand2, "addition"];
     } else if (operator === "x") {
         return [operand1 * operand2, "multiply"];
+    } else if (operator === "-") {
+        return [operand1 - operand2, "subtract"];
+    } else if (operator === "÷") {
+        return [operand1 / operand2, "division"];
     } else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
@@ -100,8 +118,10 @@ function displayAdditionQuestion(operand1, operand2) {
 /**
  * Displays a subtraction question in the question-area div
  */
-function displaySubtractQuestion() {
-    // TODO: Implement subtraction question display
+function displaySubtractQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "-";
 }
 
 /**
@@ -111,4 +131,13 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
+}
+
+/**
+ * Displays a division question in the question-area div
+ */
+function displayDivisionQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "÷";
 }
