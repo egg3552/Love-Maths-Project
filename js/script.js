@@ -27,22 +27,24 @@ function runGame(gameType) {
 
     if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
+        return;
     } else if (gameType === "multiply") {
         displayMultiplyQuestion(num1, num2);
+        return;
     } else if (gameType === "subtract") {
         displaySubtractQuestion(num1, num2);
+        return;
     } else if (gameType === "division") {
         // For division, ensure the first number is divisible by the second
         let divisor = Math.floor(Math.random() * 12) + 1; // 1-12
         let dividend = divisor * (Math.floor(Math.random() * 12) + 1); // Multiple of divisor
         displayDivisionQuestion(dividend, divisor);
-    } else {
-        alert(`Unknown game type: ${gameType}`);
-        throw `Unknown game type: ${gameType}. Aborting!`;
+        return;
     }
     
-    // Clear the answer box for new question
-    document.getElementById("answer-box").value = "";
+    // This should only execute if no valid game type was found
+    alert(`Unknown game type: ${gameType}`);
+    throw `Unknown game type: ${gameType}. Aborting!`;
 }
 
 
@@ -113,6 +115,7 @@ function displayAdditionQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "+";
+    document.getElementById("answer-box").value = "";
 }
 
 /**
@@ -122,6 +125,7 @@ function displaySubtractQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "-";
+    document.getElementById("answer-box").value = "";
 }
 
 /**
@@ -131,6 +135,7 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
+    document.getElementById("answer-box").value = "";
 }
 
 /**
@@ -140,4 +145,5 @@ function displayDivisionQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "÷";
+    document.getElementById("answer-box").value = "";
 }
